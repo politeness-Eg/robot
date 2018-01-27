@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body,
+        html{
+            width: 100%;
+            height: 100%;
+            background-color: bisque;
+        }
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        h2{
+            text-align: center;
+        }
+        div{
+            width: 230px;
+            margin: 20px auto;
+        }
+        ul {
+            list-style: none;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>聊天机器人</h2>
+    <div>
+            <input type="text" placeholder="请输入聊天内容">
+            <input type="button" value="聊起来">
+    </div>
+    <ul></ul>
+</body>
+
+</html>
+<script src="./lib/jquery.js"></script>
+<script>
+    $(function () {
+        $('input[type=button]').on("click", function () {
+            var input = $("input[type=text]").val();
+            //   console.log(input);
+            var myli = document.createElement('li');
+            myli.innerHTML = input;
+            myli.style.backgroundColor = 'skyblue';
+            document.querySelector('ul').appendChild(myli);
+
+            $.ajax({
+                type: 'POST',
+                url: 'http://www.tuling123.com/openapi/api',
+                data: 'key=43b9314790964a7cb6da4379eede2391&userid=951&info=' + input,
+                success: function (data) {
+                    // console.log(data.text);
+                    var roli = document.createElement('li');
+                    roli.innerHTML = data.text;
+                    roli.style.backgroundColor = 'hotpink';
+                    document.querySelector('ul').appendChild(roli);
+                }
+            })
+
+        })
+    })
+</script>
